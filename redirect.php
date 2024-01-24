@@ -3,6 +3,7 @@ require_once('./vendor/autoload.php');
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,8 +21,11 @@ $dotenv->load();
             sessionStorage.setItem('storageBucket', "<?= $_ENV['STORAGE_BUCKET'] ?>");
             sessionStorage.setItem('messagingSenderId', "<?= $_ENV['MESSAGING_SENDER_ID'] ?>");
             sessionStorage.setItem('appId', "<?= $_ENV['APP_ID'] ?>");
+
+            window.location.href='<?= $_ENV['APP_URL'] ?>'
+            // window.location.href = 'index.html';
         }
-        window.location.href='<?= $_ENV['APP_URL'] ?>'
+       
        
     </script>
 </body>

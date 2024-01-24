@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenWard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <style>
+
+        #navlink:hover{
+          color:white
+        }
+    
+        #navlink{
+          color: grey;
+        }
+
+        #UserProfile:hover{
+        color:white
+        }
+    
+        #UserProfile{
+          color: grey;
+        }
+
+        #logLink:hover{
+          color: dodgerblue;
+        }
+        #logLink{
+          color: gray;
+        }
+
+
+      </style>
+      
+</head>
+<body>
+
+    <div class="container-fluid bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand mx-3 fs-2 fw-bold" href="#"> <img src="img/logo.png" alt="" style="width: 80px; color: grey;">GREENWARD</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mx-4 fw-bold">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="admin.html" id="navlink">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="navlink" style="color: white;" >Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="navlink">Maps</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.html" id="navlink" >Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="UserProfile" data-bs-toggle="modal" data-bs-target="#userProfileModal"  >Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html" id="logLink" onclick="logout()">Logout</a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav> 
+        </div>
+
+        <div class="charts">
+
+            <div class="charts-card">
+                <h2 class="chart-title">Sensor Report</h2>
+                <div id="area-chart"></div>
+            </div>
+            <div class="charts-card">
+              <h2 class="chart-title">DateTime Report</h2>
+              <div id="dateTime-chart"></div>
+          </div>
+
+        </div>
+
+
+
+        <div class="container mt-3">
+          <h2>Management Reports</h2>
+          
+          <!-- View All Users -->
+          <div class="card mb-4">
+              <div class="card-header">
+                  <div class="row">
+                      <div class="col">
+                          View All Receive Data
+                      </div>
+                      <div class="col-auto ml-auto">
+
+                        <div class="input-group">
+                          <input type="date" class="form-control" id="filterDateInput">
+                          <button type="button" class="btn btn-success" onclick="filterTable()" id="filterDateButton">Filter</button>
+                          <button type="button" class="btn btn-primary" onclick="exportToCSV()">Export to CSV</button>
+                      </div>
+                      
+                      </div>
+                  </div>
+              </div>
+              <div class="card-body">
+                  <!-- Table to display all users (dummy data for demonstration) -->
+                  <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+                      <table class="table table-hover align-middle">
+                          <thead>
+                              <tr>
+                                  <th style="position: sticky; top: 0; background-color:#f8f8f8; z-index: 1;">###</th>       
+                                  <th style="position: sticky; top: 0; background-color:#f8f8f8; z-index: 1;">Node #</th>
+                                  <th style="position: sticky; top: 0; background-color:#f8f8f8; z-index: 1;">Sound</th>
+                                  <th style="position: sticky; top: 0; background-color:#f8f8f8; z-index: 1;">Flame</th>
+                                  <th style="position: sticky; top: 0; background-color:#f8f8f8; z-index: 1;">Smoke</th>
+                                  <th style="position: sticky; top: 0; background-color:#f8f8f8; z-index: 1;">Date Time</th>
+                                  <th style="position: sticky; top: 0; background-color:#f8f8f8; z-index: 1;">Action</th>  
+                                             
+                              </tr>
+                          </thead>
+                          <tbody id="tbody1">
+                    
+                          </tbody>
+                      </table>
+                  </div>
+                  <script>
+                  function exportToCSV() {
+                  // Logic to convert currently visible table data to CSV format and initiate download
+                  var csvContent = "data:text/csv;charset=utf-8,";
+                  var visibleRows = document.querySelectorAll("#tbody1 tr:not([style='display: none;'])");
+
+                  // Get the current date and time for the filename
+                  var currentDateTime = new Date().toISOString().replace(/[:.]/g, "-");
+
+                  visibleRows.forEach(function (row) {
+                      var rowData = Array.from(row.children).map(cell => cell.textContent);
+                      csvContent += rowData.join(",") + "\n";
+                  });
+
+                  var encodedUri = encodeURI(csvContent);
+                  var link = document.createElement("a");
+                  link.setAttribute("href", encodedUri);
+
+                  // Set the filename with the current date and time
+                  link.setAttribute("download", "table_data_" + currentDateTime + ".csv");
+
+                  document.body.appendChild(link);
+                  link.click();
+              }
+
+                </script>
+                
+                
+                
+                
+              </div>
+          </div>
+
+         <!-- View Report Modal -->
+          <div class="modal fade" id="viewReportModal" tabindex="-1" role="dialog" aria-labelledby="viewReportModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewReportModalLabel">Report</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <!-- <span aria-hidden="true">&times;</span> -->
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="viewReportForm" data-bs-target="#viewReportModal">
+                            <div class="form-group mb-4">
+                                <label for="nodeView">Node:</label>
+                                <input type="text" class="form-control" id="nodeView" readonly>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="soundView">Sound:</label>
+                                <input type="text" class="form-control" id="soundView" readonly>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="fireView">Fire:</label>
+                                <input type="text" class="form-control" id="fireView" readonly>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="smokeView">Smoke:</label>
+                                <input type="text" class="form-control" id="smokeView" readonly>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="datetimeView">Date Time:</label>
+                                <input type="text" class="form-control" id="datetimeView" readonly>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <audio id="fireAlertAudio" preload="auto">
+          <source src="assets/siren.m4a" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+
+
+         <!-- Fire alert Modal -->
+        <div class="modal fade" id="fireAlert" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="fireAlertTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="fireAlertTitle" style="color: red;">URGENT: Forest Fire Alert – Immediate Action Required</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <p>This is an urgent alert regarding an escalating threat of forest fires in our area. Immediate action is imperative to mitigate the risks and protect lives, property, and the environment.</p>            
+                <a href="#" id="mapLink11">View Location on Google Maps</a>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+             <!-- sound alert Modal -->
+        <div class="modal fade" id="soundAlert" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="soundAlertTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="soundAlertTitle" style="color: red;">URGENT: Chainsaw Safety Alert – Immediate Action Required</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <p>This is a critical safety alert that requires your immediate attention. We have identified significant concerns related to the use of chainsaws within our area, prompting the need for urgent action.</p>
+                <a href="#" id="mapLink12">View Location on Google Maps</a>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+            </div>
+        </div>
+
+          <!-- smoke alert Modal -->
+          <div class="modal fade" id="smokeAlert" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="smokeAlertTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="smokeAlertTitle" style="color: red;">URGENT: Forest Fire Smoke Advisory – Immediate Precautions Advised</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <p>This urgent advisory is issued in response to the escalating levels of smoke resulting from nearby forest fires. The smoke poses a significant health risk to our community, requiring immediate precautions and public awareness efforts.</p>
+                <a href="#" id="mapLink13">View Location on Google Maps</a>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!-- FOR NODE2 -->
+        <!-- Fire alert Modal -->
+        <div class="modal fade" id="fireAlert2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="fireAlertTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+              <h1 class="modal-title fs-5" id="fireAlertTitle" style="color: red;">URGENT: Forest Fire Alert – Immediate Action Required</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+              <p>This is an urgent alert regarding an escalating threat of forest fires in our area. Immediate action is imperative to mitigate the risks and protect lives, property, and the environment.</p>            
+              <a href="#" id="mapLink21">View Location on Google Maps</a>
+              </div>
+              <div class="modal-footer">
+              </div>
+          </div>
+          </div>
+      </div>
+
+
+           <!-- sound alert Modal -->
+      <div class="modal fade" id="soundAlert2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="soundAlertTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+              <h1 class="modal-title fs-5" id="soundAlertTitle" style="color: red;">URGENT: Chainsaw Safety Alert – Immediate Action Required</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+              <p>This is a critical safety alert that requires your immediate attention. We have identified significant concerns related to the use of chainsaws within our area, prompting the need for urgent action.</p>
+              <a href="#" id="mapLink22">View Location on Google Maps</a>
+              </div>
+              <div class="modal-footer">
+              </div>
+          </div>
+          </div>
+      </div>
+
+        <!-- smoke alert Modal -->
+        <div class="modal fade" id="smokeAlert2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="smokeAlertTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+              <h1 class="modal-title fs-5" id="smokeAlertTitle" style="color: red;">URGENT: Forest Fire Smoke Advisory – Immediate Precautions Advised</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+              <p>This urgent advisory is issued in response to the escalating levels of smoke resulting from nearby forest fires. The smoke poses a significant health risk to our community, requiring immediate precautions and public awareness efforts.</p>
+              <a href="#" id="mapLink23">View Location on Google Maps</a>
+              </div>
+              <div class="modal-footer">
+              </div>
+          </div>
+          </div>
+      </div>
+
+
+      <!-- Settings/User Profile Modal -->
+      <div class="modal fade" id="userProfileModal" tabindex="-1" role="dialog" aria-labelledby="userProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userProfileModalLabel">Profile Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <!-- <span aria-hidden="true">&times;</span> -->
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editProfileForm" data-bs-target="#userProfileModal">
+                        <div class="form-group">
+                            <!-- <label for="uidUser">Uid:</label> -->
+                            <input type="hidden" class="form-control" id="uidProfile" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="editfirstNameProfile">Firstname:</label>
+                            <input type="text" class="form-control" id="editfirstNameProfile" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="editlastNameProfile">Lastname:</label>
+                            <input type="text" class="form-control" id="editlastNameProfile" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="editemailInpProfile">Email:</label>
+                            <input type="email" class="form-control" id="editemailInpProfile" readonly  required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="editphoneProfile">Phone:</label>
+                            <input type="tel" class="form-control" id="editphoneProfile" pattern="[0-9]+" title="Please enter only numeric values" required>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-warning my-auto mx-3" id="resetPasswordLink">Reset Password</button>
+                        <button type="submit" class="btn btn-primary my-auto" id="updateProfile">Update Profile</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<style>
+
+    .charts{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .charts-card{
+        background-color: #fff;
+        margin-bottom: 20px;
+        padding: 25px;
+        box-sizing: border-box;
+        -webkit-column-break-inside: avoid;
+        border-radius: 5px;
+        box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 2);
+    }
+
+    .chart-title{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000;
+    }
+
+</style>
+    
+<script src="./js/chart.js"></script>
+<script src="./js/report_middleware.js"></script>
+<script src="./js/report.js" type="module"></script>
+
+</body>
+</html>

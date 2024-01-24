@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GreenKEEPER</title>
+    <title>GreenWard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
    <style>
@@ -27,7 +27,7 @@
 <body>
     <div class="container-fluid bg-dark">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand mx-3 fs-1 fw-bold" href="#"> <img src="img/logo.png" alt="" style="width: 100px; color: grey;">GREENKEEPER</a>
+        <a class="navbar-brand mx-3 fs-2 fw-bold" href="#"> <img src="img/logo.png" alt="" style="width: 80px; color: grey;">GREENWARD</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -48,16 +48,38 @@
     </div>
 
     <div class="container mt-5 mb-5" style="padding-top: 110px; padding-bottom: 105px;">
-        <div class="card mx-auto mb-3" style="max-width: 1000px;">
+        <div class="card mx-auto mb-3" style="max-width: 1020px;">
             <div class="row g-0">
               <div class="col-md-4">
-                <img src="img/about.jpg" class="img-fluid rounded-start" alt="...">
+                <img src="img/about.jpg" class="img-fluid rounded-start" alt="..." style="height: auto;">
               </div>
               <div class="col-md-8">
                 <div class="card-body">
-                        <h5 class="card-title fs-1" >About GreenKeeper</h5>
-                        <p class="card-text fs-5" style="text-align: justify;"> GreenKeeper is a revolutionary system designed to protect our precious forests. With advanced sensor technology and intelligent monitoring, GreenKeeper ensures early detection of potential threats, such as fires and illegal logging activities. Our mission is to safeguard the natural beauty of our woodlands and preserve the environment for future generations.</p>
+
+                  <div id="carouselExampleIndicators" class="carousel carousel-dark slide">
+                    <div class="carousel-indicators">
+                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <h5 class="card-title fs-3" >Welcome to Greenward: Safeguarding Our Forests for a Sustainable Future</h5>
+                        <p class="card-text fs-5" style="text-align: justify;">Welcome to Greenward, where we are on a mission to protect and preserve our precious forests from the looming threats of forest fires and illegal logging. Our commitment is rooted in a deep understanding of the importance of these ecosystems and the urgent need for collective action.</p>
                         <a href="#" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#signInModal">Sign in</a>
+                      </div>
+                      <div class="carousel-item">
+                        <h5 class="card-title fs-3 text-center align-items-center">Mission</h5>
+                        <p class="card-text fs-5" style="text-align: justify;">At Greenward, our mission is clear: to implement sustainable practices, raise awareness, and collaborate with communities. We are dedicated to ensuring the long-term health and vitality of our forests, safeguarding them from the destructive forces of forest fires and illegal logging. Through our tireless efforts, we strive to create a harmonious balance between humanity and nature, fostering a future where our natural resources are cherished and preserved.</p>
+                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signInModal">Sign in</a>
+                      </div>
+                      <div class="carousel-item">
+                        <h5 class="card-title fs-3 text-center align-items-center" >Vision</h5>
+                        <p class="card-text fs-5" style="text-align: justify;">Greenward envisions a future where our forests thrive as resilient ecosystems, untouched by the devastating impacts of forest fires and illegal logging. Our vision propels us to engage in proactive conservation efforts, foster community engagement, and seek innovative solutions. We aspire to contribute to a world where forests are not merely resources but sacred havens of life, biodiversity, and inspiration for generations to come.</p>
+                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signInModal">Sign in</a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -74,7 +96,7 @@
             <!-- Facebook -->
             <a
               class="btn btn-link btn-floating btn-lg text-dark m-1"
-              href="#!"
+              href="https://www.facebook.com/Ferrera.Jhayejay"
               role="button"
               data-mdb-ripple-color="dark"
               ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
@@ -123,7 +145,7 @@
             <!-- Github -->
             <a
               class="btn btn-link btn-floating btn-lg text-dark m-1"
-              href="#!"
+              href="https://github.com/Jhayejay08"
               role="button"
               data-mdb-ripple-color="dark"
               ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
@@ -137,12 +159,12 @@
         <!-- Copyright -->
         <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
           © 2024 Copyright:
-          <a class="text-dark" href="#">GreenKeeper.com</a>
+          <a class="text-dark" href="http://www.greenward.online/">greenward.online</a>
         </div>
         <!-- Copyright -->
       </footer>
 
-      <!-- Modal -->
+      <!--Sign in Modal -->
     <div class="modal fade" id="signInModal" tabindex="-1"  aria-labelledby="signInModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -154,7 +176,7 @@
                 <div class="modal-body">
 
                     <div id="alertBox"></div>
-                    <!-- Add your sign-in form here -->
+
                     <form id="loginForm">
                         <div class="form-group text-left">
                             <label for="emailInp">Username:</label>
@@ -174,122 +196,8 @@
         </div>
     </div>
 
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, get, ref, child, set} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-          apiKey: "AIzaSyBqVdejH771mzNUq2MU1nTtQKDoIkth6LQ",
-          authDomain: "greenkeeper-ee7c4.firebaseapp.com",
-          databaseURL: "https://greenkeeper-ee7c4-default-rtdb.asia-southeast1.firebasedatabase.app",
-          projectId: "greenkeeper-ee7c4",
-          storageBucket: "greenkeeper-ee7c4.appspot.com",
-          messagingSenderId: "484611880073",
-          appId: "1:484611880073:web:3fdab3a657fe4faf1b0258"
-        };
-      
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase();
-        const auth = getAuth(app);
-        const dbref = ref(db);
-
-
-        let emailInp = document.getElementById('emailInp');
-        let passwordInp = document.getElementById('passwordInp');
-        let loginForm = document.getElementById('loginForm');
-
-        let SignInUser = evt => {
-            console.log("Form submitted");
-            evt.preventDefault();
-
-            const alertBox = document.getElementById('alertBox');
-
-            signInWithEmailAndPassword(auth, emailInp.value, passwordInp.value)
-                .then((credentials) => {
-                    get(child(dbref, 'users/' + credentials.user.uid))
-                        .then((snapshot) => {
-                            if (snapshot.exists) {
-                                const user = snapshot.val();
-                                sessionStorage.setItem('user-info', JSON.stringify({
-                                    firstname: user.firstname,
-                                    lastname: user.lastname,
-                                    phone: user.phone,
-                                    user_type: user.user_type,
-                                }));
-                                sessionStorage.setItem('user-creds', JSON.stringify(credentials.user));
-
-                                // Check user_type and redirect accordingly
-                                if (user.user_type === 0) {
-                                    window.location.href = 'staff.html';
-                                } else {
-                                    window.location.href = 'admin.html';
-                                }
-                            } else {
-                                console.log('User data not found in the database');
-                                showAlert('User data not found in the database');
-                                emailInp.value = '';
-                                passwordInp.value = '';
-                            }
-                        })
-                        .catch((error) => {
-                            console.error('Error getting user data:', error);
-                            showAlert('Authentication error: ' + error.message);
-                            emailInp.value = '';
-                            passwordInp.value = '';
-                        });
-                })
-                .catch((error) => {
-                    // alert(error.message);
-                    // showAlert('Authentication error: ' + error.message);
-                    // console.log(error.code);
-                    // console.log(error.message);                 
-                    // passwordInp.value = '';
-                    if (error.code === 'auth/user-not-found') {
-                showAlert('User not found. Please register.');
-                emailInp.value = '';
-                passwordInp.value = '';
-                } else {
-                    showAlert('Authentication error: Email or password does not match!' );
-                    // showAlert('Authentication error: ' + error.message);
-                    console.log(error.code);
-                    console.log(error.message);
-                    passwordInp.value = '';
-                }
-
-                });
-        }
-
-
-        loginForm.addEventListener('submit', SignInUser);
-        
-        function showAlert(message) {
-            const alertBox = document.getElementById('alertBox');
-            alertBox.innerHTML = `
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    ${message}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            `;
-        }
-
-         // Function to clear text fields
-    function clearTextFields() {
-        document.getElementById('emailInp').value = '';
-        document.getElementById('passwordInp').value = '';
-    }
-
-    // Attach the clearTextFields function to the modal's hidden.bs.modal event
-    document.getElementById('signInModal').addEventListener('hidden.bs.modal', function () {
-        clearTextFields();
-        // location.reload();
-    });
-
+    <script src="./js/about.js" type="module">
+       
       </script>
 
 </body>

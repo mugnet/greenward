@@ -3,16 +3,326 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admin</title>
-</head>
-<body>
+    <title>GreenWard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
 
-    <a href="javascript:;" onclick="logout()">logout</a>
+      #navlink:hover{
+        color:white
+      }
+  
+      #navlink{
+        color: grey;
+      }
 
-    <script src="./js/middleware.js"> 
+      #UserProfile:hover{
+          color:white
+        }
     
+        #UserProfile{
+          color: grey;
+        }
+  
+      #logLink:hover{
+        color: dodgerblue;
+      }
+      #logLink{
+        color: gray;
+      }
+
+    </style>
+      
+    </head>
+<body>
+    
+    <div class="container-fluid bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand mx-3 fs-2 fw-bold" href="#"> <img src="img/logo.png" alt="" style="width: 80px; color: grey;">GREENWARD</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mx-4 fw-bold">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#" id="navlink" style="color: white;">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="report.html" id="navlink" >Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="navlink">Maps</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.html" id="navlink" >Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="UserProfile" data-bs-toggle="modal" data-bs-target="#userProfileModal" >Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="logLink" onclick="logout()">Logout</a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav> 
+        </div>
 
 
-    </script>
+        <div class="container text-center mt-5">
+            <div class="row justify-content-center">
+                <div class="row justify-content-center">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="selectedNode">
+                            Node#
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" onclick="changeNodeText('Node1')">Node1</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeNodeText('Node2')">Node2</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeNodeText('Node3')">Node3</a></li>
+                        </ul>
+                       
+                    </div>                    
+                </div>
+                <div class="col-md-3 mt-3">
+                    <div class="card mb-4" id="soundalertCard" style="width: 100%;">
+                        <!-- <img width="50" class="mt-4 mx-4" height="50" src="https://img.icons8.com/ios-filled/50/room-sound.png" alt="room-sound"/> -->
+                        <i class="bi bi-soundwave" style="font-size: 5rem;"></i>
+                        <div class="card-body">
+                            <h5 class="card-title">Sound</h5>
+                            <h3 class="card-text" id="soundData">...</h3>             
+                            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mt-3">
+                    <div class="card mb-4" id="firealertCard" style="width: 100%;">
+                        <!-- <img width="50" class="mt-4 mx-4" height="50" src="https://img.icons8.com/ios-filled/50/room-sound.png" alt="room-sound"/> -->
+                        <i class="bi bi-fire" style="font-size: 5rem;"></i>
+                        <div class="card-body">
+                            <h5 class="card-title">Fire</h5>
+                            <h3 class="card-text fs-6" id="flameData" style="padding-top: 8px; padding-bottom: 4px;">...</h3>             
+                            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container text-center">
+            <div class="row justify-content-center">
+                <div class="col-md-3">
+                    <div class="card mb-4" id="smokealertCard" style="width: 100%;">
+                        <!-- <img width="50" class="mt-4 mx-4" height="50" src="https://img.icons8.com/ios-filled/50/room-sound.png" alt="room-sound"/> -->
+                        <!-- <img width="48" height="48" src="https://img.icons8.com/badges/48/smoke-explosion.png" alt="smoke-explosion" /> -->
+                        <i class="bi bi-cloud-fog2-fill" style="font-size: 5rem;"></i>
+                        <div class="card-body">
+                            <h5 class="card-title" >Smoke</h5>
+                            <h3 class="card-text" id="smokeData">...</h3>             
+                            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card mb-4" id="gpsalertcard" style="width: 100%;">
+                        <!-- <img width="50" class="mt-4 mx-4" height="50" src="https://img.icons8.com/ios-filled/50/room-sound.png" alt="room-sound"/> -->
+                        <i class="bi bi-geo-alt-fill" style="font-size: 5rem;"></i>
+                        <div class="card-body">
+                            <h5 class="card-title">Location</h5>
+                            <!-- <h3 class="card-text" id="GPS">...</h3>              -->
+                            <a href="" id="mapLink" class="btn btn-primary" style="padding-bottom: 1px;">Click here</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="container text-center mb-5">
+            <div class="row justify-content-center">
+                <div class="col-md-3">
+                    <div class="card" style="width: 100%;">
+                        <div class="card-body" style="background-color: orange;">
+                            <h5 class="card-title" >HIGH RISK</h5>       
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card" style="width: 100%;">
+                        <div class="card-body" style="background-color: rgba(255, 0, 0, 0.841);">
+                            <h5 class="card-title" >VERY HIGH RISK</h5>       
+                        </div>
+                    </div>
+                </div>
+              
+                
+            </div>
+        </div>
+
+             <!-- Fire alert Modal -->
+        <div class="modal fade" id="fireAlert" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="fireAlertTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="fireAlertTitle" style="color: red;">URGENT: Forest Fire Alert – Immediate Action Required</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <p>This is an urgent alert regarding an escalating threat of forest fires in our area. Immediate action is imperative to mitigate the risks and protect lives, property, and the environment.</p>            
+                <a href="#" id="mapLink11">View Location on Google Maps</a>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+             <!-- sound alert Modal -->
+        <div class="modal fade" id="soundAlert" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="soundAlertTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="soundAlertTitle" style="color: red;">URGENT: Chainsaw Safety Alert – Immediate Action Required</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <p>This is a critical safety alert that requires your immediate attention. We have identified significant concerns related to the use of chainsaws within our area, prompting the need for urgent action.</p>
+                <a href="#" id="mapLink12">View Location on Google Maps</a>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+            </div>
+        </div>
+
+          <!-- smoke alert Modal -->
+          <div class="modal fade" id="smokeAlert" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="smokeAlertTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="smokeAlertTitle" style="color: red;">URGENT: Forest Fire Smoke Advisory – Immediate Precautions Advised</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <p>This urgent advisory is issued in response to the escalating levels of smoke resulting from nearby forest fires. The smoke poses a significant health risk to our community, requiring immediate precautions and public awareness efforts.</p>
+                <a href="#" id="mapLink13">View Location on Google Maps</a>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!-- FOR NODE2 -->
+        <!-- Fire alert Modal -->
+        <div class="modal fade" id="fireAlert2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="fireAlertTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+              <h1 class="modal-title fs-5" id="fireAlertTitle" style="color: red;">URGENT: Forest Fire Alert – Immediate Action Required</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+              <p>This is an urgent alert regarding an escalating threat of forest fires in our area. Immediate action is imperative to mitigate the risks and protect lives, property, and the environment.</p>            
+              <a href="#" id="mapLink21">View Location on Google Maps</a>
+              </div>
+              <div class="modal-footer">
+              </div>
+          </div>
+          </div>
+      </div>
+
+
+           <!-- sound alert Modal -->
+      <div class="modal fade" id="soundAlert2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="soundAlertTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+              <h1 class="modal-title fs-5" id="soundAlertTitle" style="color: red;">URGENT: Chainsaw Safety Alert – Immediate Action Required</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+              <p>This is a critical safety alert that requires your immediate attention. We have identified significant concerns related to the use of chainsaws within our area, prompting the need for urgent action.</p>
+              <a href="#" id="mapLink22">View Location on Google Maps</a>
+              </div>
+              <div class="modal-footer">
+              </div>
+          </div>
+          </div>
+      </div>
+
+        <!-- smoke alert Modal -->
+        <div class="modal fade" id="smokeAlert2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="smokeAlertTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+              <h1 class="modal-title fs-5" id="smokeAlertTitle" style="color: red;">URGENT: Forest Fire Smoke Advisory – Immediate Precautions Advised</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+              <p>This urgent advisory is issued in response to the escalating levels of smoke resulting from nearby forest fires. The smoke poses a significant health risk to our community, requiring immediate precautions and public awareness efforts.</p>
+              <a href="#" id="mapLink23">View Location on Google Maps</a>
+              </div>
+              <div class="modal-footer">
+              </div>
+          </div>
+          </div>
+      </div>
+
+
+      <!-- Settings/User Profile Modal -->
+      <div class="modal fade" id="userProfileModal" tabindex="-1" role="dialog" aria-labelledby="userProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userProfileModalLabel">Profile Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <!-- <span aria-hidden="true">&times;</span> -->
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editProfileForm" data-bs-target="#userProfileModal">
+                        <div class="form-group">
+                            <!-- <label for="uidUser">Uid:</label> -->
+                            <input type="hidden" class="form-control" id="uidProfile" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="editfirstNameProfile">Firstname:</label>
+                            <input type="text" class="form-control" id="editfirstNameProfile" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="editlastNameProfile">Lastname:</label>
+                            <input type="text" class="form-control" id="editlastNameProfile" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="editemailInpProfile">Email:</label>
+                            <input type="email" class="form-control" id="editemailInpProfile" readonly  required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="editphoneProfile">Phone:</label>
+                            <input type="tel" class="form-control" id="editphoneProfile" pattern="[0-9]+" title="Please enter only numeric values" required>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-warning my-auto mx-3" id="resetPasswordLink">Reset Password</button>
+                        <button type="submit" class="btn btn-primary my-auto" id="updateProfile">Update Profile</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            
+
+        <audio id="fireAlertAudio" preload="auto">
+            <source src="assets/siren.m4a" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <script src="./js/middleware.js"></script>
+        <script src="./js/admin.js" type="module"></script>
+
 </body>
 </html>
